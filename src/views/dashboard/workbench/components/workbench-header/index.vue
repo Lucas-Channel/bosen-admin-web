@@ -4,8 +4,8 @@
       <div class="flex-y-center">
         <icon-local-avatar class="text-70px" />
         <div class="pl-12px">
-          <h3 class="text-18px font-semibold">早安，{{ auth.userInfo.username }}, 今天又是充满活力的一天！</h3>
-          <p class="leading-30px text-#999">今日多云转晴，20℃ - 25℃！</p>
+          <h3 class="text-18px font-semibold">Hey {{ auth.userInfo.username }}！ 今天又是充满活力的一天！</h3>
+          <p class="leading-30px text-#999">welcome to back.</p>
         </div>
       </div>
       <n-space :size="24" :wrap="false">
