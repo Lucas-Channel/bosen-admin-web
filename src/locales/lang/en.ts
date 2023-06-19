@@ -102,6 +102,10 @@ const locale: LocaleMessages<I18nType.Schema> = {
 			after_sales: {
 				_value: 'After Sales',
 				after_sales_manger: 'After Sales Management'
+			},
+			shop: {
+				_value: 'Shop',
+				shop_manger: 'Shop Management'
 			}
     }
   }

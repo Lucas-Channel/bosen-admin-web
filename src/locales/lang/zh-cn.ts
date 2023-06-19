@@ -102,6 +102,10 @@ const locale: LocaleMessages<I18nType.Schema> = {
 			after_sales: {
 				_value: '售后',
 				after_sales_manger: '售后管理'
+			},
+			shop: {
+				_value: '商城',
+				shop_manger: '商城管理'
 			}
     }
   }

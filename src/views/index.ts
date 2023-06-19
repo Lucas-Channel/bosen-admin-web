@@ -7,10 +7,9 @@ export const views: Record<
   403: () => import('./_builtin/403/index.vue'),
   404: () => import('./_builtin/404/index.vue'),
   500: () => import('./_builtin/500/index.vue'),
-  about: () => import('./about/index.vue'),
+  'after-sales_manager': () => import('./after-sales/manager/index.vue'),
   'auth-demo_permission': () => import('./auth-demo/permission/index.vue'),
   'auth-demo_super': () => import('./auth-demo/super/index.vue'),
-	'after-sales_manager': () => import('./after-sales/manager/index.vue'),
   component_button: () => import('./component/button/index.vue'),
   component_card: () => import('./component/card/index.vue'),
   component_table: () => import('./component/table/index.vue'),
@@ -39,6 +38,7 @@ export const views: Record<
   'multi-menu_first_second': () => import('./multi-menu/first/second/index.vue'),
   'multi-menu_first_second-new_third': () => import('./multi-menu/first/second-new/third/index.vue'),
   'not-found': () => import('./_builtin/not-found/index.vue'),
+  order_manager: () => import('./order/manager/index.vue'),
   plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
   plugin_charts_echarts: () => import('./plugin/charts/echarts/index.vue'),
   plugin_copy: () => import('./plugin/copy/index.vue'),
@@ -50,6 +50,6 @@ export const views: Record<
   plugin_swiper: () => import('./plugin/swiper/index.vue'),
   plugin_video: () => import('./plugin/video/index.vue'),
   product_manager: () => import('./product/manager/index.vue'),
-  store_manager: () => import('./store/manager/index.vue'),
-	order_manager: () => import('./store/manager/index.vue')
+  shop_manager: () => import('./shop/manager/index.vue'),
+  store_manager: () => import('./store/manager/index.vue')
 };
