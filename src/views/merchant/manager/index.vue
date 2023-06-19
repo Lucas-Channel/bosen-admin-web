@@ -38,9 +38,9 @@ import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { genderLabels, userStatusLabels } from '@/constants';
 import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
+import ColumnSetting from '../../component/table/column-setting.vue';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
-import ColumnSetting from './components/column-setting.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
