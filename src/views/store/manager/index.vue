@@ -1,6 +1,6 @@
 <template>
   <div class="h-full overflow-hidden">
-    <n-card title="商家管理" :bordered="false" class="rounded-16px shadow-sm">
+    <n-card title="店铺管理" :bordered="false" class="rounded-16px shadow-sm">
       <n-space class="pb-12px" justify="space-between">
         <n-space>
           <n-button type="primary" @click="handleAddTable">
