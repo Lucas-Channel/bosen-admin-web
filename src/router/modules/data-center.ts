@@ -27,7 +27,7 @@ const dataCenter: AuthRoute.Route = {
 		}
 	],
 	meta: {
-		title: '数据中心',
+		title: '数据看板',
 		i18nTitle: 'message.routes.dataCenter._value',
 		icon: 'fluent:data-histogram-24-regular',
 		order: 2

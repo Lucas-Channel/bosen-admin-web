@@ -79,7 +79,7 @@ const locale: LocaleMessages<I18nType.Schema> = {
       },
       about: '关于',
       dataCenter: {
-				_value: '数据中台',
+				_value: '数据看板',
 				merchant_center: '商家中心',
 				trade_center: '交易中心'
 			},

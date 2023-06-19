@@ -79,7 +79,7 @@ const locale: LocaleMessages<I18nType.Schema> = {
       },
       about: 'About',
 			dataCenter: {
-				_value: 'Data Center',
+				_value: 'Data Board',
 				merchant_center: 'Merchant Center',
 				trade_center: 'Trade Center'
 			},
