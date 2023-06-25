@@ -45,6 +45,6 @@ declare namespace ApiUserManagement {
      * - 1: 激活
      * - 2: 冻结
      */
-    userStatus: '1' | '2' | null;
+    userStatus: '1' | '2' | '3' | '4' | null;
   }
 }

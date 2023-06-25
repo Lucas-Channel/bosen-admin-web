@@ -34,7 +34,9 @@ pnpm dev
 ```bash
 pnpm build
 ```
+
 ## 相关目录说明
+
 - src/views
 
 ```bash
@@ -46,4 +48,3 @@ pnpm build
 ```aidl
 路由配置
 ```
-

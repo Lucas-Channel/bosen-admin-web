@@ -381,6 +381,35 @@ declare namespace I18nType {
         user: string;
       };
       about: string;
+      dataCenter: {
+        _value: string;
+        merchant_center: string;
+        trade_center: string;
+      };
+      merchant: {
+        _value: string;
+        merchant_manger: string;
+      };
+      store: {
+        _value: string;
+        store_manger: string;
+      };
+      product: {
+        _value: string;
+        product_manger: string;
+      };
+      order: {
+        _value: string;
+        order_manger: string;
+      };
+      after_sales: {
+        _value: string;
+        after_sales_manger: string;
+      };
+      shop: {
+        _value: string;
+        shop_manger: string;
+      };
     };
   }
 }
