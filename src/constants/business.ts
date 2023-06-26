@@ -30,3 +30,13 @@ export const userStatusLabels: Record<UserManagement.UserStatusKey, string> = {
   4: '软删除'
 };
 export const userStatusOptions = transformObjectToOption(userStatusLabels);
+
+/** 用户状态 */
+export const storeShopApplyStatusEnum: Record<StoreShop.StoreShopApplyStatus, string> = {
+  1: '待审核开店申请',
+  2: '开店申请审核通过',
+  3: '开店申请审核不通过',
+  4: '待审核关店申请',
+  5: '关店申请审核通过',
+  6: '关店申请审核不通过'
+};

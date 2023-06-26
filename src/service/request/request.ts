@@ -29,7 +29,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  async function asyncRequest<T>(param: RequestParam): Promise<Service.RequestResult<T>> {
+  async function asyncRequest<T>(param: RequestParam): Promise<T | null> {
     const { url } = param;
     const method = param.method || 'get';
     const { instance } = customInstance;
@@ -41,7 +41,7 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
       config: param.axiosConfig
     })) as Service.RequestResult<T>;
 
-    return res;
+    return res.data;
   }
 
   /**
