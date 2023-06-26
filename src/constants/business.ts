@@ -40,3 +40,4 @@ export const storeShopApplyStatusEnum: Record<StoreShop.StoreShopApplyStatus, st
   5: '关店申请审核通过',
   6: '关店申请审核不通过'
 };
+export const storeShopApplyStatusEnumOptions = transformObjectToOption(storeShopApplyStatusEnum);

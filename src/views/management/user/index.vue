@@ -1,6 +1,6 @@
 <template>
   <div class="h-full overflow-hidden">
-    <n-card title="用户管理" :bordered="false" class="rounded-16px shadow-sm">
+    <n-card title="店铺管理" :bordered="false" class="rounded-16px shadow-sm">
       <n-space class="pb-12px" justify="space-between">
         <n-space>
           <n-button type="primary" @click="handleAddTable">
@@ -11,13 +11,9 @@
             <icon-ic-round-delete class="mr-4px text-20px" />
             删除
           </n-button>
-          <n-button type="success">
-            <icon-uil:export class="mr-4px text-20px" />
-            导出Excel
-          </n-button>
         </n-space>
         <n-space align="center" :size="18">
-          <n-button size="small" type="primary" @click="getTableData">
+          <n-button size="small" type="primary" @click="getTableData(pagination.page!, pagination.pageSize!)">
             <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
             刷新表格
           </n-button>
@@ -35,94 +31,74 @@ import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-import { genderLabels, userStatusLabels } from '@/constants';
-// import { fetchUserList } from '@/service';
+import { storeShopApplyStatusEnum } from '@/constants';
+import { storeShopPageList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import ColumnSetting from '../../component/table/column-setting.vue';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
 
-const tableData = ref<UserManagement.User[]>([]);
-// function setTableData(data: UserManagement.User[]) {
-//   tableData.value = data;
-// }
-
-async function getTableData() {
-  startLoading();
-  // const { data } = await fetchUserList();
-  // if (data) {
-  //   setTimeout(() => {
-  //     setTableData(data);
-  //     endLoading();
-  //   }, 1000);
-  // }
+const tableData = ref<StoreShop.StoreShopInfo[]>([]);
+function setTableData(data: StoreShop.StoreShopInfo[]) {
+  tableData.value = data;
 }
 
-const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
+async function getTableData(page: number, pageSize: number) {
+  startLoading();
+  const { data } = await storeShopPageList('', 1, '', page, pageSize);
+  if (data) {
+    setTimeout(() => {
+      setTableData(data.data);
+      endLoading();
+    }, 1000);
+    pagination.itemCount = data.totalCount;
+  }
+}
+
+const columns: Ref<DataTableColumns<StoreShop.StoreShopInfo>> = ref([
   {
     type: 'selection',
     align: 'center'
   },
   {
-    key: 'index',
-    title: '序号',
+    key: 'storeId',
+    title: '店铺ID',
     align: 'center'
   },
   {
-    key: 'username',
-    title: '用户名',
+    key: 'storeName',
+    title: '店铺名称',
     align: 'center'
   },
   {
-    key: 'age',
-    title: '用户年龄',
+    key: 'logoUrl',
+    title: '店铺logo',
     align: 'center'
   },
   {
-    key: 'gender',
-    title: '性别',
-    align: 'center',
-    render: row => {
-      if (row.gender) {
-        const tagTypes: Record<UserManagement.GenderKey, NaiveUI.ThemeColor> = {
-          '0': 'success',
-          '1': 'warning'
-        };
-
-        return <NTag type={tagTypes[row.gender]}>{genderLabels[row.gender]}</NTag>;
-      }
-
-      return <span></span>;
-    }
-  },
-  {
-    key: 'phone',
-    title: '手机号码',
+    key: 'shopName',
+    title: '上架商城',
     align: 'center'
   },
   {
-    key: 'email',
-    title: '邮箱',
-    align: 'center'
-  },
-  {
-    key: 'userStatus',
+    key: 'applyStatus',
     title: '状态',
     align: 'center',
     render: row => {
-      if (row.userStatus) {
-        const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
-          '1': 'success',
-          '2': 'error',
-          '3': 'warning',
-          '4': 'default'
+      if (row.applyStatus) {
+        const tagTypes: Record<StoreShop.StoreShopApplyStatus, NaiveUI.ThemeColor> = {
+          '1': 'default',
+          '2': 'success',
+          '3': 'error',
+          '4': 'default',
+          '5': 'success',
+          '6': 'error'
         };
 
-        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
+        return <NTag type={tagTypes[row.applyStatus]}>{storeShopApplyStatusEnum[row.applyStatus]}</NTag>;
       }
       return <span></span>;
     }
@@ -147,7 +123,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
       );
     }
   }
-]) as Ref<DataTableColumns<UserManagement.User>>;
+]) as Ref<DataTableColumns<StoreShop.StoreShopInfo>>;
 
 const modalType = ref<ModalType>('add');
 
@@ -155,9 +131,9 @@ function setModalType(type: ModalType) {
   modalType.value = type;
 }
 
-const editData = ref<UserManagement.User | null>(null);
+const editData = ref<StoreShop.StoreShopInfo | null>(null);
 
-function setEditData(data: UserManagement.User | null) {
+function setEditData(data: StoreShop.StoreShopInfo | null) {
   editData.value = data;
 }
 
@@ -181,20 +157,21 @@ function handleDeleteTable(rowId: string) {
 
 const pagination: PaginationProps = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 1,
   showSizePicker: true,
-  pageSizes: [10, 15, 20, 25, 30],
+  pageSizes: [1, 15, 20, 25, 30],
   onChange: (page: number) => {
-    pagination.page = page;
+    getTableData(page, pagination.pageSize!)
   },
   onUpdatePageSize: (pageSize: number) => {
     pagination.pageSize = pageSize;
     pagination.page = 1;
+    getTableData(pagination.page, pageSize)
   }
 });
 
 function init() {
-  getTableData();
+  getTableData(pagination.page!, pagination.pageSize!);
 }
 
 // 初始化

@@ -9,9 +9,8 @@ import { request } from '../request';
  * @param size - 页面大小
  * @returns - 返回data
  */
-// eslint-disable-next-line max-params
 export function storeShopPageList(name: string, status: number, shopId: string, current: number, size: number) {
-  return request.get<StoreShop.StoreShopInfo>(
+  return request.get<StoreShop.StoreShopInfoData>(
     `/bosen-admin/store/shop/admin/pageList?current=${current}&size=${size}&name=${name}&shopId=${shopId}`
   );
 }

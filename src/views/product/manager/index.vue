@@ -13,7 +13,7 @@
           </n-button>
         </n-space>
         <n-space align="center" :size="18">
-          <n-button size="small" type="primary" @click="getTableData">
+          <n-button size="small" type="primary" @click="getTableData(pagination.page!, pagination.pageSize!)">
             <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
             刷新表格
           </n-button>
@@ -46,14 +46,15 @@ function setTableData(data: StoreShop.StoreShopInfo[]) {
   tableData.value = data;
 }
 
-async function getTableData() {
+async function getTableData(page: number, pageSize: number) {
   startLoading();
-  const { data } = await storeShopPageList('', 1, '', 1, 10);
+  const { data } = await storeShopPageList('', 1, '', page, pageSize);
   if (data) {
     setTimeout(() => {
-      setTableData(data);
+      setTableData(data.data);
       endLoading();
     }, 1000);
+    pagination.itemCount = data.totalCount;
   }
 }
 
@@ -156,20 +157,21 @@ function handleDeleteTable(rowId: string) {
 
 const pagination: PaginationProps = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 1,
   showSizePicker: true,
-  pageSizes: [10, 15, 20, 25, 30],
+  pageSizes: [1, 15, 20, 25, 30],
   onChange: (page: number) => {
-    pagination.page = page;
+    getTableData(page, pagination.pageSize!)
   },
   onUpdatePageSize: (pageSize: number) => {
     pagination.pageSize = pageSize;
     pagination.page = 1;
+    getTableData(pagination.page, pageSize)
   }
 });
 
 function init() {
-  getTableData();
+  getTableData(pagination.page!, pagination.pageSize!);
 }
 
 // 初始化
