@@ -2,6 +2,7 @@
 declare namespace StoreShop {
   /** 店铺信息 */
   interface StoreShopInfo {
+    id: string;
     /** 店铺id */
     storeId: string;
     /** 店铺名 */

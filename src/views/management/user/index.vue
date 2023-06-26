@@ -36,29 +36,30 @@ import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { genderLabels, userStatusLabels } from '@/constants';
-import { fetchUserList } from '@/service';
+// import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
+import ColumnSetting from '../../component/table/column-setting.vue';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
-import ColumnSetting from '../../component/table/column-setting.vue';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
 
 const tableData = ref<UserManagement.User[]>([]);
-function setTableData(data: UserManagement.User[]) {
-  tableData.value = data;
-}
+// function setTableData(data: UserManagement.User[]) {
+//   tableData.value = data;
+// }
 
 async function getTableData() {
   startLoading();
-  const { data } = await fetchUserList();
-  if (data) {
-    setTimeout(() => {
-      setTableData(data);
-      endLoading();
-    }, 1000);
-  }
+  // const { data } = await fetchUserList();
+  // if (data) {
+  //   setTimeout(() => {
+  //     setTableData(data);
+  //     endLoading();
+  //   }, 1000);
+  // }
 }
 
 const columns: Ref<DataTableColumns<UserManagement.User>> = ref([

@@ -1,6 +1,6 @@
 <template>
   <div class="h-full overflow-hidden">
-    <n-card title="商品管理" :bordered="false" class="rounded-16px shadow-sm">
+    <n-card title="店铺管理" :bordered="false" class="rounded-16px shadow-sm">
       <n-space class="pb-12px" justify="space-between">
         <n-space>
           <n-button type="primary" @click="handleAddTable">
@@ -10,10 +10,6 @@
           <n-button type="error">
             <icon-ic-round-delete class="mr-4px text-20px" />
             删除
-          </n-button>
-          <n-button type="success">
-            <icon-uil:export class="mr-4px text-20px" />
-            导出Excel
           </n-button>
         </n-space>
         <n-space align="center" :size="18">
@@ -35,8 +31,8 @@ import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-import { genderLabels, userStatusLabels } from '@/constants';
-import { fetchUserList } from '@/service';
+import { storeShopApplyStatusEnum } from '@/constants';
+import { storeShopPageList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import ColumnSetting from '../../component/table/column-setting.vue';
 import TableActionModal from './components/table-action-modal.vue';
@@ -45,14 +41,14 @@ import type { ModalType } from './components/table-action-modal.vue';
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
 
-const tableData = ref<UserManagement.User[]>([]);
-function setTableData(data: UserManagement.User[]) {
+const tableData = ref<StoreShop.StoreShopInfo[]>([]);
+function setTableData(data: StoreShop.StoreShopInfo[]) {
   tableData.value = data;
 }
 
 async function getTableData() {
   startLoading();
-  const { data } = await fetchUserList();
+  const { data } = await storeShopPageList('', 1, '', 1, 10);
   if (data) {
     setTimeout(() => {
       setTableData(data);
@@ -61,67 +57,47 @@ async function getTableData() {
   }
 }
 
-const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
+const columns: Ref<DataTableColumns<StoreShop.StoreShopInfo>> = ref([
   {
     type: 'selection',
     align: 'center'
   },
   {
-    key: 'index',
-    title: '序号',
+    key: 'storeId',
+    title: '店铺ID',
     align: 'center'
   },
   {
-    key: 'username',
-    title: '用户名',
+    key: 'storeName',
+    title: '店铺名称',
     align: 'center'
   },
   {
-    key: 'age',
-    title: '用户年龄',
+    key: 'logoUrl',
+    title: '店铺logo',
     align: 'center'
   },
   {
-    key: 'gender',
-    title: '性别',
-    align: 'center',
-    render: row => {
-      if (row.gender) {
-        const tagTypes: Record<UserManagement.GenderKey, NaiveUI.ThemeColor> = {
-          '0': 'success',
-          '1': 'warning'
-        };
-
-        return <NTag type={tagTypes[row.gender]}>{genderLabels[row.gender]}</NTag>;
-      }
-
-      return <span></span>;
-    }
-  },
-  {
-    key: 'phone',
-    title: '手机号码',
+    key: 'shopName',
+    title: '上架商城',
     align: 'center'
   },
   {
-    key: 'email',
-    title: '邮箱',
-    align: 'center'
-  },
-  {
-    key: 'userStatus',
+    key: 'applyStatus',
     title: '状态',
     align: 'center',
     render: row => {
-      if (row.userStatus) {
-        const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
-          '1': 'success',
-          '2': 'error',
-          '3': 'warning',
-          '4': 'default'
+      if (row.applyStatus) {
+        const tagTypes: Record<StoreShop.StoreShopApplyStatus, NaiveUI.ThemeColor> = {
+          '1': 'default',
+          '2': 'success',
+          '3': 'error',
+          '4': 'default',
+          '5': 'success',
+          '6': 'error'
         };
 
-        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
+        return <NTag type={tagTypes[row.applyStatus]}>{storeShopApplyStatusEnum[row.applyStatus]}</NTag>;
       }
       return <span></span>;
     }
@@ -146,7 +122,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
       );
     }
   }
-]) as Ref<DataTableColumns<UserManagement.User>>;
+]) as Ref<DataTableColumns<StoreShop.StoreShopInfo>>;
 
 const modalType = ref<ModalType>('add');
 
@@ -154,9 +130,9 @@ function setModalType(type: ModalType) {
   modalType.value = type;
 }
 
-const editData = ref<UserManagement.User | null>(null);
+const editData = ref<StoreShop.StoreShopInfo | null>(null);
 
-function setEditData(data: UserManagement.User | null) {
+function setEditData(data: StoreShop.StoreShopInfo | null) {
   editData.value = data;
 }
 
