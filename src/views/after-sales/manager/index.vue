@@ -13,14 +13,14 @@
 			</n-button>
 		  </n-space>
 		  <n-space align="center" :size="18">
-			<n-button size="small" type="primary" @click="getTableData(pagination.page!, pagination.pageSize!)">
+			<n-button size="small" type="primary" @click="getTableData">
 			  <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
 			  刷新表格
 			</n-button>
 			<column-setting v-model:columns="columns" />
 		  </n-space>
 		</n-space>
-		<n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" />
+		<n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" remote/>
 		<table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
 	  </n-card>
 	</div>
@@ -46,9 +46,9 @@
 	tableData.value = data;
   }
   
-  async function getTableData(page: number, pageSize: number) {
+  async function getTableData() {
 	startLoading();
-	const { data } = await storeShopPageList('', 1, '', page, pageSize);
+	const { data } = await storeShopPageList('', 1, '', pagination.page!, pagination.pageSize!);
 	if (data) {
 	  setTimeout(() => {
 		setTableData(data.data);
@@ -161,17 +161,18 @@
 	showSizePicker: true,
 	pageSizes: [1, 15, 20, 25, 30],
 	onChange: (page: number) => {
-	  getTableData(page, pagination.pageSize!)
+	  pagination.page = page;
+	  getTableData();
 	},
 	onUpdatePageSize: (pageSize: number) => {
 	  pagination.pageSize = pageSize;
 	  pagination.page = 1;
-	  getTableData(pagination.page, pageSize)
+	  getTableData();
 	}
   });
   
   function init() {
-	getTableData(pagination.page!, pagination.pageSize!);
+	getTableData();
   }
   
   // 初始化
