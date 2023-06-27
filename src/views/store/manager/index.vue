@@ -1,8 +1,12 @@
 <template>
   <div class="h-full overflow-hidden">
     <n-card :bordered="false" class="rounded-16px shadow-sm">
+      <n-space>
+        搜索条件
+      </n-space>
       <n-space class="pb-12px" justify="space-between">
-        <n-space align="center" :size="24">
+        <n-space :size="6"></n-space>
+        <n-space align="center" :size="18">
           <n-button size="small" type="primary" @click="getTableData">
             <icon-mdi-refresh class="mr-4px text-16px" :class="{ 'animate-spin': loading }" />
             刷新表格
@@ -99,7 +103,7 @@ const columns: Ref<DataTableColumns<StoreShop.StoreShopInfo>> = ref([
           <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
             {{
               default: () => '确认删除',
-              trigger: () => <NButton size={'small'}>删除</NButton>
+              trigger: () => <NButton size={'small'} color={'red'}>删除</NButton>
             }}
           </NPopconfirm>
         </NSpace>
