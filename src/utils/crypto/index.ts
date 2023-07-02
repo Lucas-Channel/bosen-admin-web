@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js';
 
-const CryptoSecret = '__CryptoJS_Secret__';
+const CryptoSecret = 'BoSenZhiYun1.0.0';
 
 /**
  * 加密数据
@@ -9,6 +9,14 @@ const CryptoSecret = '__CryptoJS_Secret__';
 export function encrypto(data: any) {
   const newData = JSON.stringify(data);
   return CryptoJS.AES.encrypt(newData, CryptoSecret).toString();
+}
+
+/**
+ * 加密数据
+ * @param data - 数据
+ */
+export function encryptoPassword(data: string) {
+  return CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(CryptoSecret), {mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7, }).toString();
 }
 
 /**
