@@ -88,8 +88,8 @@ export const useAuthStore = defineStore('auth-store', {
       let successFlag = false;
 
       // 先把token存储到缓存中(后面接口的请求头需要token)
-      const { token, refreshToken } = backendToken;
-      localStg.set('token', token);
+      const { token, refreshToken, expiresIn } = backendToken;
+      localStg.set('token', token, expiresIn);
       localStg.set('refreshToken', refreshToken);
 
       // 获取用户信息
