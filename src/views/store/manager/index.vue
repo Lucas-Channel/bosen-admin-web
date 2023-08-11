@@ -1,9 +1,7 @@
 <template>
   <div class="h-full overflow-hidden">
     <n-card :bordered="false" class="rounded-16px shadow-sm">
-      <n-space>
-        搜索条件
-      </n-space>
+      <n-space>搜索条件</n-space>
       <n-space class="pb-12px" justify="space-between">
         <n-space :size="6"></n-space>
         <n-space align="center" :size="18">
@@ -14,7 +12,7 @@
           <column-setting v-model:columns="columns" />
         </n-space>
       </n-space>
-      <n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" remote/>
+      <n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" remote />
     </n-card>
   </div>
 </template>
@@ -22,16 +20,19 @@
 <script setup lang="tsx">
 import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
-import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
+import {NButton, NPopconfirm, NSpace, NTag, useNotification} from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { storeShopApplyStatusEnum } from '@/constants';
 import { storeShopPageList } from '@/service';
 import { useLoading } from '@/hooks';
 import ColumnSetting from '../../component/table/column-setting.vue';
+import {connectWebsocket} from "@/utils/websocket";
 
 const { loading, startLoading, endLoading } = useLoading(false);
 
 const tableData = ref<StoreShop.StoreShopInfo[]>([]);
+const notification = useNotification()
+
 function setTableData(data: StoreShop.StoreShopInfo[]) {
   tableData.value = data;
 }
@@ -103,7 +104,11 @@ const columns: Ref<DataTableColumns<StoreShop.StoreShopInfo>> = ref([
           <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
             {{
               default: () => '确认删除',
-              trigger: () => <NButton size={'small'} color={'red'}>删除</NButton>
+              trigger: () => (
+                <NButton size={'small'} color={'red'}>
+                  删除
+                </NButton>
+              )
             }}
           </NPopconfirm>
         </NSpace>
@@ -135,6 +140,28 @@ const pagination: PaginationProps = reactive({
 function init() {
   getTableData();
 }
+
+connectWebsocket(
+	// 测试地址
+	'ws://127.0.0.1:9009/message/ws/2002',
+	// 传递给后台的数据
+	'链接服务器',
+	// { openexe: 'openexe' },
+	// 成功拿到后台返回的数据的回调函数
+	(data) => {
+		notification['success']({
+			content: data,
+			meta: '博森',
+			duration: 2500,
+			keepAliveOnHover: true
+		})
+	},
+	// websocket连接失败的回调函数
+	(err) => {
+		console.log('失败的回调函数', err)
+	}
+)
+
 
 // 初始化
 init();
