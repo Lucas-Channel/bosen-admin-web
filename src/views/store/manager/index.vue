@@ -143,7 +143,7 @@ function init() {
 
 connectWebsocket(
 	// 测试地址
-	'ws://127.0.0.1:9009/message/ws/2002',
+	'ws://127.0.0.1:9009/message/ws/1/1',
 	// 传递给后台的数据
 	'链接服务器',
 	// { openexe: 'openexe' },
