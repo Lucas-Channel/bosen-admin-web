@@ -32,7 +32,7 @@ import { CLIENT_ID, CLIENT_SECRET } from '@/config';
 import { useAuthStore } from '@/store';
 import { useRouterPush } from '@/composables';
 import { createRequiredFormRule } from '@/utils';
-import { encryptoPassword } from '@/utils/crypto'
+import { encryptoPassword } from '@/utils/crypto';
 
 const auth = useAuthStore();
 const { login } = useAuthStore();
@@ -59,8 +59,8 @@ async function handleSubmit() {
   await formRef.value?.validate();
 
   const { username, password, grant_type, client_id, client_secret } = model;
-  
-  const en = encryptoPassword(password)
+
+  const en = encryptoPassword(password);
 
   login(username, en, grant_type, client_id, client_secret);
 }

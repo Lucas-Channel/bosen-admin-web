@@ -1,7 +1,7 @@
 /** 商城店铺相关模块 */
 declare namespace StoreShop {
   /** 店铺信息 */
-interface StoreShopInfo {
+  interface StoreShopInfo {
     id: string;
     /** 店铺id */
     storeId: string;
@@ -17,8 +17,8 @@ interface StoreShopInfo {
     shopName: string;
   }
   interface StoreShopInfoData {
-    data: StoreShopInfo[],
-    totalCount: number
+    data: StoreShopInfo[];
+    totalCount: number;
   }
   type StoreShopApplyStatus = NonNullable<StoreShopInfo['applyStatus']>;
 }

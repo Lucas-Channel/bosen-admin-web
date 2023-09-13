@@ -4,7 +4,7 @@
       <n-space :vertical="true" :size="16">
         <n-card :bordered="false" size="small" class="shadow-sm rounded-16px">
           <n-tabs type="line" animated>
-            <n-tab-pane name="task" tab="我的待办">我的待办</n-tab-pane>
+            <n-tab-pane name="task" tab="我的待办" :loading="loading">我的待办</n-tab-pane>
             <n-tab-pane name="tasked" tab="我的已办">我的已办</n-tab-pane>
             <n-tab-pane name="system-msg" tab="系统消息">系统消息</n-tab-pane>
             <n-tab-pane name="advice" tab="通知公告">通知公告</n-tab-pane>
@@ -27,7 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import { queryMyTaskToDo } from '@/service';
+import { useLoading } from '@/hooks';
 import { ShortcutsCard } from './components';
+
+const { loading, startLoading, endLoading } = useLoading(false);
 
 defineOptions({ name: 'DashboardWorkbenchMain' });
 
@@ -46,6 +50,17 @@ const shortcuts: Shortcuts[] = [
   { id: 4, label: '表格', icon: 'mdi:table-large', iconColor: '#fab251' },
   { id: 5, label: '图表', icon: 'mdi:chart-areaspline', iconColor: '#8aca6b' }
 ];
+
+async function getMyTaskToDo() {
+  startLoading();
+  const { data } = await queryMyTaskToDo('', '');
+  if (data) {
+    console.log(data);
+  }
+  endLoading();
+}
+
+getMyTaskToDo();
 </script>
 
 <style scoped></style>

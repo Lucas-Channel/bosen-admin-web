@@ -20,18 +20,18 @@
 <script setup lang="tsx">
 import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
-import {NButton, NPopconfirm, NSpace, NTag, useNotification} from 'naive-ui';
+import { NButton, NPopconfirm, NSpace, NTag, useNotification } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { storeShopApplyStatusEnum } from '@/constants';
 import { storeShopPageList } from '@/service';
 import { useLoading } from '@/hooks';
+import { connectWebsocket } from '@/utils/websocket';
 import ColumnSetting from '../../component/table/column-setting.vue';
-import {connectWebsocket} from "@/utils/websocket";
 
 const { loading, startLoading, endLoading } = useLoading(false);
 
 const tableData = ref<StoreShop.StoreShopInfo[]>([]);
-const notification = useNotification()
+const notification = useNotification();
 
 function setTableData(data: StoreShop.StoreShopInfo[]) {
   tableData.value = data;
