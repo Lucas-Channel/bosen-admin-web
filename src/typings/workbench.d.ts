@@ -10,7 +10,7 @@ declare namespace WorkBench {
     /** 提交时间 */
     createTime: string;
   }
-  interface StoreShopInfoData {
+  interface MyTaskToDoData {
     data: MyTaskToDo[];
   }
 }

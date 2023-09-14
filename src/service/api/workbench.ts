@@ -7,7 +7,7 @@ import { request } from '../request';
  * @returns - 返回data
  */
 export function queryMyTaskToDo(title: string, initiatorName: string) {
-  return request.get<WorkBench.MyTaskToDo>(
+  return request.get<WorkBench.MyTaskToDoData>(
     `/bosen-workflow/work/flow/processes/query/queryMyTasksToDo?title=${title}&initiatorName=${initiatorName}`
   );
 }
