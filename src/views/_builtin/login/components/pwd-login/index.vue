@@ -62,7 +62,9 @@ async function handleSubmit() {
 
   const en = encryptoPassword(password);
 
-  login(username, en, grant_type, client_id, client_secret);
+	const clientSecret = encryptoPassword(client_secret);
+
+  login(username, en, grant_type, client_id, clientSecret);
 }
 </script>
 
