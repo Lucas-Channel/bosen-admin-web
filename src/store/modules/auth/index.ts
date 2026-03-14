@@ -35,19 +35,16 @@ export const useAuthStore = defineStore('auth-store', {
       const { toLogin } = useRouterPush(false);
       const { resetTabStore } = useTabStore();
       const { resetRouteStore } = useRouteStore();
-      const route = unref(router.currentRoute);
 
       clearAuthStorage();
       this.$reset();
-
-      if (route.meta.requiresAuth) {
-        toLogin();
-      }
 
       nextTick(() => {
         resetTabStore();
         resetRouteStore();
       });
+
+      toLogin(undefined, '');
     },
     /**
      * 处理登录后成功或失败的逻辑
