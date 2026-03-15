@@ -6,11 +6,6 @@ const locale: LocaleMessages<I18nType.Schema> = {
       title: 'Bosen-博森智云'
     },
     routes: {
-      dashboard: {
-        _value: '仪表盘',
-        analysis: '分析页',
-        workbench: '工作台'
-      },
       myWorkbench: '我的工作台',
       document: {
         _value: '文档',

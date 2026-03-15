@@ -6,11 +6,6 @@ const locale: LocaleMessages<I18nType.Schema> = {
       title: 'Bosen'
     },
     routes: {
-      dashboard: {
-        _value: 'Dashboard',
-        analysis: 'Analysis',
-        workbench: 'Workbench'
-      },
       myWorkbench: 'My Workbench',
       document: {
         _value: 'Document',
