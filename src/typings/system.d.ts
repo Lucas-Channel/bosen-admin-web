@@ -304,15 +304,18 @@ declare namespace App {
 declare namespace I18nType {
   type langType = 'en' | 'zh-CN';
 
-  interface Schema {
+interface Schema {
     system: {
       title: string;
     };
     routes: {
+      workbench: {
+        _value: string;
+        my_workbench: string;
+      };
       dashboard: {
         _value: string;
         analysis: string;
-        workbench: string;
       };
       document: {
         _value: string;

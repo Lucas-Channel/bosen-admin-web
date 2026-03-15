@@ -124,8 +124,8 @@ export const useRouteStore = defineStore('route-store', {
           path: '/my-workbench',
           component: 'self',
           meta: {
-            title: '我的工作台',
-            i18nTitle: 'message.routes.myWorkbench',
+            title: '工作台',
+            i18nTitle: 'message.routes.workbench.my_workbench',
             requiresAuth: false,
             keepAlive: true,
             singleLayout: 'basic',
@@ -158,8 +158,8 @@ export const useRouteStore = defineStore('route-store', {
         path: '/my-workbench',
         component: 'self',
         meta: {
-          title: '我的工作台',
-          i18nTitle: 'message.routes.myWorkbench',
+          title: '工作台',
+          i18nTitle: 'message.routes.workbench.my_workbench',
           requiresAuth: false,
           keepAlive: true,
           singleLayout: 'basic',

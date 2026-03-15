@@ -6,7 +6,14 @@ const locale: LocaleMessages<I18nType.Schema> = {
       title: 'Bosen'
     },
     routes: {
-      myWorkbench: 'My Workbench',
+      workbench: {
+        _value: 'Workbench',
+        my_workbench: 'Workbench'
+      },
+      dashboard: {
+        _value: 'Dashboard',
+        analysis: 'Analysis'
+      },
       document: {
         _value: 'Document',
         vue: 'Vue Document',
