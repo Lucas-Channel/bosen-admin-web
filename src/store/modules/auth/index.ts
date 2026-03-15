@@ -1,6 +1,5 @@
-import { unref, nextTick } from 'vue';
+import { nextTick } from 'vue';
 import { defineStore } from 'pinia';
-import { router } from '@/router';
 import { fetchLogin } from '@/service';
 import { useRouterPush } from '@/composables';
 import { localStg } from '@/utils';

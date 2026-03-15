@@ -119,11 +119,29 @@ export const useRouteStore = defineStore('route-store', {
       const { error, data } = await fetchUserRoutes(userId);
 
       if (!error) {
-        this.routeHomeName = data.home;
-        this.handleUpdateRootRedirect(data.home);
-        this.handleAuthRoute(sortRoutes(data.routes));
+        const myWorkbenchRoute: AuthRoute.Route = {
+          name: 'my-workbench',
+          path: '/my-workbench',
+          component: 'self',
+          meta: {
+            title: '我的工作台',
+            i18nTitle: 'message.routes.myWorkbench',
+            requiresAuth: false,
+            keepAlive: true,
+            singleLayout: 'basic',
+            icon: 'icon-park-outline:workbench',
+            order: 0
+          },
+          children: []
+        };
 
-        initHomeTab(data.home, router);
+        const allRoutes = [myWorkbenchRoute, ...data.routes];
+        const homeRoute = 'my-workbench';
+        this.routeHomeName = homeRoute;
+        this.handleUpdateRootRedirect(homeRoute);
+        this.handleAuthRoute(sortRoutes(allRoutes));
+
+        initHomeTab(homeRoute, router);
 
         this.isInitAuthRoute = true;
       } else {
@@ -135,10 +153,29 @@ export const useRouteStore = defineStore('route-store', {
       const { initHomeTab } = useTabStore();
       const auth = useAuthStore();
 
-      const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
+      const myWorkbenchRoute: AuthRoute.Route = {
+        name: 'my-workbench',
+        path: '/my-workbench',
+        component: 'self',
+        meta: {
+          title: '我的工作台',
+          i18nTitle: 'message.routes.myWorkbench',
+          requiresAuth: false,
+          keepAlive: true,
+          singleLayout: 'basic',
+          icon: 'icon-park-outline:workbench',
+          order: 0
+        },
+        children: []
+      };
+
+      const routes = [myWorkbenchRoute, ...filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole)];
       this.handleAuthRoute(routes);
 
-      initHomeTab(this.routeHomeName, router);
+      const homeRoute = 'my-workbench';
+      this.routeHomeName = homeRoute;
+      this.handleUpdateRootRedirect(homeRoute);
+      initHomeTab(homeRoute, router);
 
       this.isInitAuthRoute = true;
     },

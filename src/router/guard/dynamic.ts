@@ -19,7 +19,8 @@ export async function createDynamicRouteGuard(
     // 未登录情况下直接回到登录页，登录成功后再加载权限路由
     if (!isLogin) {
       const toName = to.name as AuthRoute.AllRouteKey;
-      if (route.isValidConstantRoute(toName) && !to.meta.requiresAuth) {
+      const isPublicRoute = toName === 'my-workbench';
+      if ((route.isValidConstantRoute(toName) && !to.meta.requiresAuth) || isPublicRoute) {
         next();
       } else {
         const redirect = to.fullPath;

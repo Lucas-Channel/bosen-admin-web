@@ -11,6 +11,7 @@ const locale: LocaleMessages<I18nType.Schema> = {
         analysis: '分析页',
         workbench: '工作台'
       },
+      myWorkbench: '我的工作台',
       document: {
         _value: '文档',
         vue: 'Vue文档',

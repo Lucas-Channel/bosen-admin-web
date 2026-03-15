@@ -38,6 +38,7 @@ export const views: Record<
   merchant_manager: () => import('./merchant/manager/index.vue'),
   'multi-menu_first_second-new_third': () => import('./multi-menu/first/second-new/third/index.vue'),
   'multi-menu_first_second': () => import('./multi-menu/first/second/index.vue'),
+  'my-workbench': () => import('./my-workbench/index.vue'),
   order_manager: () => import('./order/manager/index.vue'),
   plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
   plugin_charts_echarts: () => import('./plugin/charts/echarts/index.vue'),
